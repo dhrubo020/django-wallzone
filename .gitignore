@@ -1,0 +1,32 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+*.egg
+*.pyo
+
+# Django
+*.log
+*.pot
+*.pyc
+db.sqlite3
+media/
+staticfiles/
+.env
+
+# Virtual environment
+venv/
+.env/
+Pipfile.lock
+
+# VSCode / IDEs
+.vscode/
+.idea/
+
+# MacOS
+.DS_Store
+
+# S3/Cloud build artifacts
+*.bak
+*.swp
+*.tmp
