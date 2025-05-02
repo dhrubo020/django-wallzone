@@ -18,6 +18,16 @@ class Tag(models.Model):
         return self.name
 
 class Wallpaper(models.Model):
+    LOCATION_LOCAL = 1
+    LOCATION_S3 = 2
+    LOCATION_OTHER = 3
+
+    LOCATION_CHOICES = [
+        (LOCATION_LOCAL, 'Local'),
+        (LOCATION_S3, 'S3'),
+        (LOCATION_OTHER, 'Other'),
+    ]
+    location = models.IntegerField(choices=LOCATION_CHOICES, default=1)
     title = models.CharField(max_length=255)
     slug = models.SlugField(unique=True, blank=True)
     original_file_key = models.CharField(max_length=255, blank=True, null=True)
@@ -35,11 +45,16 @@ class Wallpaper(models.Model):
             base_slug = slugify(self.title)
             similar = Wallpaper.objects.filter(slug__startswith=base_slug).count()
             self.slug = f"{base_slug}-{similar + 1}" if similar else base_slug
+            
+        if settings.USE_S3_STORAGE:
+            self.location = self.LOCATION_S3
+        else:
+            self.location = self.LOCATION_LOCAL
+            
         super().save(*args, **kwargs)
 
     @property
     def image_base_url(self):
-        """Generate the image URL dynamically based on the base URL and file key"""
         return f"{settings.IMAGE_BASE_URL}"
     
     def __str__(self):

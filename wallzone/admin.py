@@ -10,6 +10,7 @@ class WallpaperAdmin(admin.ModelAdmin):
     list_display = (
         'title',
         'slug',
+        'location',
         'original_file_key',
         'thumbnail_file_key',
         'get_categories',
