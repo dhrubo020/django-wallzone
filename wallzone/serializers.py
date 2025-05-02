@@ -18,4 +18,4 @@ class WallpaperSerializer(serializers.ModelSerializer):
     tags = TagSerializer(many=True, read_only=True)
     class Meta:
         model = Wallpaper
-        fields = ['title', 'slug', 'category', 'tags', 'image_base_url', 'original_file_key', 'thumbnail_file_key', 'uploaded_at']
+        fields = ['title', 'slug', 'category', 'tags', 'location', 'image_base_url', 'original_file_key', 'thumbnail_file_key', 'uploaded_at']
